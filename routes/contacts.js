@@ -6,10 +6,48 @@ var contacts = db.collection('contancts');
 
 /* GET contacts listing. */
 router.get('/', function(req, res) {
-  contacts.find(req.query).toArray(function (err, items) {
+
+  // Pagination, e.g. ?offset=10&limit=10
+  var offset = (req.query['offset'] !== undefined ) ? req.query['offset'] : 0;
+  var limit = (req.query['limit'] !== undefined ) ? req.query['limit'] : 100;
+
+  // Filtering, e.g. ?filter=firstName::Ruud|lastName::Visser
+  var filterString = {}
+  if (req.query['filter'] !== undefined ) {
+    filterString = req.query['filter'];
+    var filterArr = filterString.split('|');
+    var filterObj = {};
+    for (var i = 0; i < filterArr.length; i++) {
+      var keyVals = filterArr[i].split('::');
+      filterObj[keyVals[0]] = keyVals[1];
+    }
+  }
+
+  // Sorting, e.g. ?sort=lastName|-firstName
+  var sortString = {}
+  if (req.query['sort'] !== undefined ) {
+    sortString = req.query['sort'];
+    var sortArr = sortString.split('|');
+    var sortObj = {};
+    for (var i = 0; i < sortArr.length; i++) {
+      if(String(sortArr[i])[0] == '-') {
+        // Descening
+        sortObj[String(sortArr[i]).substr(1)] = -1;
+      } else {
+        // Ascending
+        sortObj[sortArr[i]] = 1;
+      }
+    }
+  }
+  // Pagination, filtering and sorting are generic and can be moved out.
+
+
+  contacts.find(filterObj, {}, {skip: offset, limit: limit, sort: sortObj }).toArray(function (err, items) {
+    res.setHeader('Content-Range', 'items ' + offset + '-' + (parseInt(offset)+parseInt(limit)) + '/*');
     res.json(items);
   });
 });
+
 
 /* GET contact properties. */
 router.get('/:id([0-9a-f]{24})', function(req, res) {
