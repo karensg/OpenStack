@@ -11,7 +11,6 @@ db = mongo.db("mongodb://localhost:27017/openstack", {native_parser:true});
 
 
 var routes = require('./routes/index');
-var users = require('./routes/users');
 var contacts = require('./routes/contacts');
 
 var app = express();
@@ -28,14 +27,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Make the db accessible to the router
-app.use(function(req,res,next){
-    req.db = db;
-    next();
-});
 
 app.use('/', routes);
-app.use('/users', users);
 app.use('/contacts', contacts);
 
 // catch 404 and forward to error handler
