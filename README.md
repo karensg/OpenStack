@@ -4,7 +4,7 @@ At this moment we assume that [node](http://nodejs.org/) and [git](http://git-sc
 
 1. Install MongoDB.
 See [MongoDB documentation](http://docs.mongodb.org/manual/installation/) for installation instructions on different environments
-2. Start MongoDB process on default port 27017: 
+2. Start MongoDB process on default port 27017:
 
         mongod --port 27017
 3. Clone the Github repository:
@@ -25,7 +25,7 @@ Now the website is accessible on [http://localhost:3000/](http://localhost:3000/
 If you would like to change the port in Linux, run:
 
         export PORT=8080 && npm start
-        
+
 For Windows, run:
 
         set PORT=1234 && npm start

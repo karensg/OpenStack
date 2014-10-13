@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-var contacts = db.collection('contancts');
+var contacts = db.collection('contacts');
 
 
 /* GET contacts listing. */
@@ -39,7 +39,7 @@ router.get('/', function(req, res) {
       }
     }
   }
-  // Pagination, filtering and sorting are generic and can be moved out.
+  // Pagination, filtering and sorting are generic and can be moved out of this function
 
 
   contacts.find(filterObj, {}, {skip: offset, limit: limit, sort: sortObj }).toArray(function (err, items) {
