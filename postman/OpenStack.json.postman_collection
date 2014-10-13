@@ -51,18 +51,21 @@
 			"synced": false
 		},
 		{
-			"collectionId": "9594f6b1-b9c5-4b6d-0319-308128be2f84",
 			"id": "27679969-4ac5-226b-cc64-377ca2f9ded1",
-			"name": "Delete a contact",
-			"description": "",
-			"url": "http://localhost:3000/contacts/5433de9195902d8425911217",
-			"method": "DELETE",
 			"headers": "",
+			"url": "{{url}}/contacts/5433de9195902d8425911217",
+			"preRequestScript": "",
+			"pathVariables": {},
+			"method": "DELETE",
 			"data": [],
 			"dataMode": "params",
-			"timestamp": 0,
-			"responses": [],
 			"version": 2,
+			"tests": "",
+			"time": 1413220264517,
+			"name": "Delete a contact",
+			"description": "",
+			"collectionId": "9594f6b1-b9c5-4b6d-0319-308128be2f84",
+			"responses": [],
 			"synced": false
 		},
 		{
@@ -176,7 +179,7 @@
 		{
 			"collectionId": "9594f6b1-b9c5-4b6d-0319-308128be2f84",
 			"id": "ced73fa1-fcad-ca4a-727d-44c48a30bf5c",
-			"name": "Pagination",
+			"name": "Contacts Pagination",
 			"description": "",
 			"url": "{{url}}/contacts?offset=1&limit=1",
 			"method": "GET",
