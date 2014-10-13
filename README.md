@@ -138,6 +138,8 @@ URL `GET: {{url}}/contacts?sort={attribute}|{-}[optional]{attribute}[optional]`
 
 Add "-" before attribute for DESC sorting
 
+Sample request: {{url}}/contacts?sort=lastName|-mobile
+
 Possible response (200):
 ```json
 [
@@ -176,6 +178,8 @@ mobile: "0687654321"
 
 URL `GET: {{url}}/contacts?filter={attribute}::(value)|{attribute}::(value)[optional]`
 
+Sample request: {{url}}/contacts?filter=lastName::Visser|firstName::Ruud
+
 Possible response (200):
 ```json
 [
@@ -195,6 +199,8 @@ URL `GET: {{url}}/contacts?offset=(int)&limit=(int)`
 
 - offset: where to start
 - limit: how many results
+
+Sample request: {{url}}/contacts?offset=1&limit=2
 
 Possible response (200):
 ```json
