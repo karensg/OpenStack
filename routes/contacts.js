@@ -19,7 +19,7 @@ router.get('/', function(req, res) {
     var filterObj = {};
     for (var i = 0; i < filterArr.length; i++) {
       var keyVals = filterArr[i].split('::');
-      filterObj[keyVals[0]] = keyVals[1];
+      filterObj[keyVals[0]] = {$regex : new RegExp(".*"+keyVals[1]+".*", 'i')};
     }
   }
 
