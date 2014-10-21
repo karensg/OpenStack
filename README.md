@@ -24,7 +24,7 @@ Now the website is accessible on [http://localhost:3000/](http://localhost:3000/
 
 If you would like to change the port in Linux, run:
 
-        export PORT=8080 && npm start
+        PORT=8080 npm start
 
 For Windows, run:
 
