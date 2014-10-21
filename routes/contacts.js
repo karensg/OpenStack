@@ -12,19 +12,19 @@ router.get('/', function(req, res) {
   var limit = (req.query['limit'] !== undefined ) ? req.query['limit'] : 100;
 
   // Filtering, e.g. ?filter=firstName::Ruud|lastName::Visser
-  var filterString = {}
+  var filterString = {};
   if (req.query['filter'] !== undefined ) {
     filterString = req.query['filter'];
     var filterArr = filterString.split('|');
     var filterObj = {};
     for (var i = 0; i < filterArr.length; i++) {
       var keyVals = filterArr[i].split('::');
-      filterObj[keyVals[0]] = {$regex : new RegExp(".*"+keyVals[1]+".*", 'i')};
+      filterObj[keyVals[0]] = {$regex : new RegExp('.*' + keyVals[1] + '.*', 'i')};
     }
   }
 
   // Sorting, e.g. ?sort=lastName|-firstName
-  var sortString = {}
+  var sortString = {};
   if (req.query['sort'] !== undefined ) {
     sortString = req.query['sort'];
     var sortArr = sortString.split('|');
