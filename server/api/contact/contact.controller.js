@@ -1,7 +1,5 @@
 'use strict';
 
-var _ = require('lodash');
-
 //Setup database
 var mongoskin = require('mongoskin');
 var db = mongoskin.db('mongodb://localhost:27017/openstack', {safe:true});
@@ -50,6 +48,7 @@ exports.index = function(req, res) {
   });
 };
 
+/* GET contact properties. */
 exports.getContact = function(req, res) {
   var userId = req.params.id;
   contacts.findById(userId, function(err, result) {
@@ -59,4 +58,39 @@ exports.getContact = function(req, res) {
       res.status(404).send({ msg:'error: ' + err });
     }
   });
-}
+};
+
+/* Update current contact. */
+exports.updateContact = function(req, res) {
+  var userId = req.params.id;
+  contacts.updateById(userId, {$set: req.body}, function(err, result) {
+    if(result === 1) {
+      res.status(204).send();
+    } else {
+      res.status(404).send({ msg:'error: ' + err });
+    }
+  });
+};
+
+/* Create new contact. */
+exports.addContact = function(req, res) {
+  contacts.insert(req.body, function(err, result){
+    if(err === null) {
+      res.status(201).json(result);
+    } else {
+      res.send({ msg:'error: ' + err });
+    }
+  });
+};
+
+/* DELETE current contact. */
+exports.deleteContact = function(req, res) {
+  var userId = req.params.id;
+  contacts.removeById(userId, function(err, result) {
+    if(result === 1) {
+      res.status(204).send();
+    } else {
+      res.status(404).send({ msg:'error: ' + err });
+    }
+  });
+};
