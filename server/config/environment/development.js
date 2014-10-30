@@ -8,5 +8,5 @@ module.exports = {
     uri: 'mongodb://localhost:27017/openstack'
   },
 
-  seedDB: true
+  seedDB: false
 };

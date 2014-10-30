@@ -8,15 +8,15 @@ var contacts = db.collection('contacts');
 // Get list of contacts
 exports.index = function(req, res) {
   // Pagination, e.g. ?offset=10&limit=10
-  var offset = (req.query['offset'] !== undefined ) ? req.query['offset'] : 0;
-  var limit = (req.query['limit'] !== undefined ) ? req.query['limit'] : 100;
+  var offset = (req.query.offset !== undefined ) ? req.query.offset : 0;
+  var limit = (req.query.limit !== undefined ) ? req.query.limit : 100;
 
   // Filtering, e.g. ?filter=firstName::Ruud|lastName::Visser
   var filterString = {};
-  if (req.query['filter'] !== undefined ) {
-    filterString = req.query['filter'];
+  var filterObj = {};
+  if (req.query.filter !== undefined ) {
+    filterString = req.query.filter;
     var filterArr = filterString.split('|');
-    var filterObj = {};
     for (var i = 0; i < filterArr.length; i++) {
       var keyVals = filterArr[i].split('::');
       filterObj[keyVals[0]] = {$regex : new RegExp('.*' + keyVals[1] + '.*', 'i')};
@@ -25,17 +25,17 @@ exports.index = function(req, res) {
 
   // Sorting, e.g. ?sort=lastName|-firstName
   var sortString = {};
-  if (req.query['sort'] !== undefined ) {
-    sortString = req.query['sort'];
+  var sortObj = {};
+  if (req.query.sort !== undefined ) {
+    sortString = req.query.sort;
     var sortArr = sortString.split('|');
-    var sortObj = {};
-    for (var i = 0; i < sortArr.length; i++) {
-      if(String(sortArr[i])[0] == '-') {
+    for (var s = 0; s < sortArr.length; s++) {
+      if(String(sortArr[s])[0] === '-') {
         // Descening
-        sortObj[String(sortArr[i]).substr(1)] = -1;
+        sortObj[String(sortArr[s]).substr(1)] = -1;
       } else {
         // Ascending
-        sortObj[sortArr[i]] = 1;
+        sortObj[sortArr[s]] = 1;
       }
     }
   }
