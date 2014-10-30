@@ -1,0 +1,7 @@
+#editForm .form-group._id{
+  display:none;
+}
+
+#editForm .form-group label{
+  text-transform: capitalize;
+}

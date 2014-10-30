@@ -1,0 +1,39 @@
+<div ng-include="'components/navbar/navbar.html'"></div>
+
+<header class="hero-unit" id="banner">
+  <div class="container">
+    <h1>Contact App</h1>
+    <p class="lead">Sync all your contacts with your google account!</p>
+  </div>
+</header>
+
+<div class="container">
+  <div class="row">
+    <div class="col-lg-12">
+      <h1 class="page-header">Contact</h1>
+
+        <div class="row">
+          <div class="col-lg-6">
+            <form id="editForm" role="form">
+
+              <div class="form-group {{key}}" ng-repeat='(key, prop) in contact track by key' >
+                <label for="{{key}}Input">{{key}}</label>
+                 <input type="text" class="form-control" id="{{key}}Input" name="{{key}}" placeholder="{{key}}" ng-model="contact[key]">
+              </div>
+
+
+      			</form>
+          </div>
+        </div>
+
+      <a ng-click="addField()" class="btn btn-info">Add field</a> <a ng-click="saveContact()" class="btn btn-success">Save</a>
+
+    </div>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+      <p>&copy Karens Grigorjancs & Ruud Visser</p>
+  </div>
+</footer>
