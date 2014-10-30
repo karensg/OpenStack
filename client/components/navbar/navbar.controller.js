@@ -5,6 +5,9 @@ angular.module('contactAppApp')
     $scope.menu = [{
       'title': 'Home',
       'link': '/'
+    },{
+      'title': 'Contacts',
+      'link': '/contacts'
     }];
 
     $scope.isCollapsed = true;
