@@ -16,19 +16,19 @@ See [MongoDB documentation](http://docs.mongodb.org/manual/installation/) for in
 5. Install the npm dependencies:
 
         npm install
-6. Start the server:
+6. Build the distribution version:
 
-        npm start
+        grunt build
+7. Enter the Distribution folder:
 
-Now the website is accessible on [http://localhost:3000/](http://localhost:3000/).
+        cd dist
+8. Run the server in production mode:
 
-If you would like to change the port in Linux, run:
+        NODE_ENV=production npm start
 
-        PORT=8080 npm start
+Now the website is accessible on [http://localhost:8080/](http://localhost:8080/).
 
-For Windows, run:
 
-        set PORT=1234 && npm start
 
 #REST API Documentation
 
