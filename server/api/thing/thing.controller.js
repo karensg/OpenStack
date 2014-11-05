@@ -1,37 +1,112 @@
-/**
- * Using Rails-like standard naming convention for endpoints.
- * GET     /things              ->  index
- * POST    /things              ->  create
- * GET     /things/:id          ->  show
- * PUT     /things/:id          ->  update
- * DELETE  /things/:id          ->  destroy
- */
-
 'use strict';
 
-var _ = require('lodash');
+var request = require('request');
+var googleapis = require('googleapis');
+var urlHelper = require('url');
+var session = require('express-session');
+var serverToken = '';
 
 // Get list of things
 exports.index = function(req, res) {
-  res.json([
-  {
-  name : 'Development Tools',
-  info : 'Integration with popular tools such as Bower, Grunt, Karma, Mocha, JSHint, Node Inspector, Livereload, Protractor, Jade, Stylus, Sass, CoffeeScript, and Less.'
-  }, {
-  name : 'Server and Client integration',
-  info : 'Built with a powerful and fun stack: MongoDB, Express, AngularJS, and Node.'
-  }, {
-  name : 'Smart Build System',
-  info : 'Build system ignores `spec` files, allowing you to keep tests alongside code. Automatic injection of scripts and styles into your index.html'
-  },  {
-  name : 'Modular Structure',
-  info : 'Best practice client and server structures allow for more code reusability and maximum scalability'
-  },  {
-  name : 'Optimized Build',
-  info : 'Build process packs up your templates as a single JavaScript payload, minifies your scripts/css/images, and rewrites asset names for caching.'
-  },{
-  name : 'Deployment Ready',
-  info : 'Easily deploy your app to Heroku or Openshift with the heroku and openshift subgenerators'
+
+  getToken(req,res, function (token) {
+
+    var options = {
+      url: 'https://www.google.com/m8/feeds/contacts/default/full',
+      headers: {
+          'Authorization': 'Bearer ' + token
+      }
+    };
+    function callback(error, response, body) {
+      res.write(body);
+      res.end();
+    }
+    request(options, callback);
+  });
+
+};
+
+exports.getContact = function (req,res) {
+  var id = req.params.id;
+  getToken(req,res, function (token) {
+
+    var options = {
+      url: 'https://www.google.com/m8/feeds/contacts/default/base/' + id,
+      headers: {
+          'Authorization': 'Bearer ' + token
+      }
+    };
+    function callback(error, response, body) {
+      res.write(body);
+      res.end();
+    }
+    request(options, callback);
+  });
+};
+
+exports.addContact = function(req,res) {
+
+  getToken(req,res, function (token) {
+    var options = {
+      url: 'https://www.google.com/m8/feeds/contacts/default/full',
+      headers: {
+          'Authorization': 'Bearer ' + token
+      },
+      body: '',
+      method: 'POST'
+    };
+    function callback(error, response, body) {
+      res.write(body);
+      res.end();
+    }
+    request(options, callback);
+  });
+};
+
+
+
+
+
+var getToken = function (req,res, cb) {
+
+  if(serverToken != '') {
+    cb(serverToken);
+  } else {
+
+    var OAuth2Client = googleapis.auth.OAuth2;
+
+    // Client ID and client secret are available at
+    // https://code.google.com/apis/console
+    var CLIENT_ID = '91132622899-9nf94p2rrjfetos89cavjp94as3ocmem.apps.googleusercontent.com';
+    var CLIENT_SECRET = 'XG4D_MXvp990d0f0kt5P97HF';
+    var REDIRECT_URL = 'http://localhost:9000/api/things';
+    var SCOPE = 'https://www.google.com/m8/feeds';
+
+    var auth = new OAuth2Client(CLIENT_ID, CLIENT_SECRET, REDIRECT_URL);
+
+    var getAccessToken = function(code) {
+      console.log(code);
+      auth.getToken(code, function(err, tokens) {
+        if (err) {
+          console.log('Error while trying to retrieve access token', err);
+          return;
+        }
+        auth.credentials = tokens;
+        serverToken = tokens.access_token;
+        cb(serverToken);
+      });
+    };
+
+    var url_parts = urlHelper.parse(req.url, true);
+    var code = url_parts.query.code;
+
+    if( typeof code !== 'undefined' ) {
+      getAccessToken(code);
+    }
+    else {
+      console.log('redirect');
+      var url = auth.generateAuthUrl({ scope: SCOPE });
+      res.redirect(url);
+    }
   }
-  ]);
 };
