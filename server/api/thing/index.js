@@ -7,9 +7,8 @@ var router = express.Router();
 
 router.get('/login', controller.login);
 router.get('/saveToken', controller.saveToken);
-
 router.get('/', controller.index);
 router.get('/:id', controller.getContact);
-router.get('/post', controller.addContact);
+router.get('/post', controller.addContacts);
 
 module.exports = router;
