@@ -24,7 +24,12 @@ angular.module('contactAppApp')
       console.log(data);
 
       $http.put('/api/contacts/' + $routeParams.id, data).then(function(res){
-        console.log(res);
+        if(res.status == 204){
+          alert('Contact saved');
+        }else{
+          alert('Error saving contact');
+        }
+
       });
     };
 

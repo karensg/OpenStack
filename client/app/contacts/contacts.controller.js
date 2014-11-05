@@ -33,4 +33,35 @@ angular.module('contactAppApp')
     };
 
 
+    //import/export functions
+
+    $scope.importContacts = function(){
+
+      $http.get('/api/things').then(function(res){
+          console.log(res);
+          if(res.status == 200){
+            $http.get('/api/contacts').then(function(res){
+                $scope.contacts = res.data;
+            });
+          }else{
+            alert('Error importing contacts');
+          }
+      });
+
+    }
+
+    $scope.exportContacts = function(){
+
+      $http.post('/api/contacts/export').then(function(res){
+          if(res.status == 200){
+            alert('Google contacts exported!');
+          }else{
+            alert('Error exporting contacts');
+          }
+      });
+
+
+    }
+
+
 });

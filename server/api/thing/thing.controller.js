@@ -15,21 +15,51 @@ var SCOPE = 'https://www.google.com/m8/feeds';
 var OAuth2Client = googleapis.auth.OAuth2;
 var auth = new OAuth2Client(CLIENT_ID, CLIENT_SECRET, REDIRECT_URL);
 
-// Get list of Google contacts
+//Setup database
+var mongoskin = require('mongoskin');
+var db = mongoskin.db('mongodb://localhost:27017/openstack', {safe:true});
+var contacts = db.collection('contacts');
+
+// Get list of things
 exports.index = function(req, res) {
 
   getToken(req,res, function (token) {
 
     var options = {
-      url: 'https://www.google.com/m8/feeds/contacts/default/full',
+      url: 'https://www.google.com/m8/feeds/contacts/default/full?alt=json',
       headers: {
           'Authorization': 'Bearer ' + token,
           'GData-Version': '3.0'
       }
     };
     function callback(error, response, body) {
-      res.write(body);
+      var data = JSON.parse(body);
+      for(var i in data.feed.entry)
+      {
+
+        var entry = data.feed.entry[i];
+        var email = entry['gd$email'][0]['address'];
+        var name = entry['title']['$t'];
+        var firstName = name.split(' ')[0];
+        var lastName = name.split(' ')[1];
+        var user = {};
+        user.email = email;
+        user.firstName = firstName;
+        user.lastName = lastName;
+        console.log(JSON.stringify(user));
+        console.log('--');
+        //contacts.find({'email' : user.email}, {}, {}).toArray(function (err, items) {
+          console.log(JSON.stringify(user));
+          //if(items.length == 0){
+            console.log(user.email);
+            contacts.insert(user, function(err, result){
+
+            });
+          //}
+        //});
+      }
       res.end();
+
     }
     request(options, callback);
   });
@@ -96,7 +126,7 @@ exports.saveToken = function (req,res) {
       }
       auth.credentials = tokens;
       serverToken = tokens.access_token;
-      res.redirect('/');
+      res.redirect('/contacts');
     });
   };
 
