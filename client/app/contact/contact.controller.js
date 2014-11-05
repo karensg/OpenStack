@@ -5,6 +5,17 @@ angular.module('contactAppApp')
 
     $http.get('/api/contacts/' + $routeParams.id).then(function(res){
         $scope.contact = res.data;
+
+        if(!$scope.contact.email){
+          $scope.contact.email = '';
+        }
+        if(!$scope.contact.firstName){
+          $scope.contact.firstName = '';
+        }
+        if(!$scope.contact.lastName){
+          $scope.contact.lastName = '';
+        }
+
     });
 
     $scope.saveContact = function(){
