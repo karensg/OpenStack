@@ -16,13 +16,16 @@ See [MongoDB documentation](http://docs.mongodb.org/manual/installation/) for in
 5. Install the npm dependencies:
 
         npm install
-6. Build the distribution version:
+6. Install the bower dependencies:
+
+        bower install        
+7. Build the distribution version:
 
         grunt build
-7. Enter the Distribution folder:
+8. Enter the Distribution folder:
 
         cd dist
-8. Run the server in production mode:
+9. Run the server in production mode:
 
         NODE_ENV=production npm start
 
