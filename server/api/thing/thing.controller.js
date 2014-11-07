@@ -89,22 +89,29 @@ exports.getContact = function (req,res) {
 // Create all contacts
 exports.addContacts = function(req,res) {
 
-  getToken(req,res, function (token) {
-    var options = {
-      url: 'https://www.google.com/m8/feeds/contacts/default/full',
-      headers: {
-          'Authorization': 'Bearer ' + token,
-          'GData-Version': '3.0',
-          'If-Match': '*'
-      },
-      body: xmlString,
-      method: 'POST'
-    };
-    function callback(error, response, body) {
-      res.write(body);
-      res.end();
-    }
-    request(options, callback);
+  contacts.find({},function(err, items) {
+    items.each(function(err,item){
+
+      if(item){
+        getToken(req,res, function (token) {
+          var options = {
+            url: 'https://www.google.com/m8/feeds/contacts/default/full',
+            headers: {
+                'Authorization': 'Bearer ' + token,
+                'GData-Version': '3.0',
+                'Content-Type' : 'application/atom+xml'
+            },
+            body: xmlString(item),
+            method: 'POST'
+          };
+          function callback(error, response, body) {
+            res.end();
+          }
+          request(options, callback);
+        });
+      }
+
+    });
   });
 };
 
@@ -126,7 +133,7 @@ exports.saveToken = function (req,res) {
       }
       auth.credentials = tokens;
       serverToken = tokens.access_token;
-      res.redirect('/contacts');
+      res.redirect('/api/things/post');
     });
   };
 
@@ -143,11 +150,12 @@ var getToken = function (req,res, cb) {
   if(serverToken != '') {
     cb(serverToken);
   } else {
-    res.redirect('things/login');
+    res.redirect('/api/things/login');
   }
 };
 
-var xmlString = xml({
+var xmlString = function(item){
+  return xml({
     'atom:entry':
     [
         {
@@ -166,9 +174,9 @@ var xmlString = xml({
         },
         {
             'gd:name': [
-                { 'gd:givenName': 'Elizabeth' },
-                { 'gd:familyName': 'Bennet' },
-                { 'gd:fullName': 'Elizabeth Bennet' }
+                { 'gd:givenName': item.firstName },
+                { 'gd:familyName': item.lastName },
+                { 'gd:fullName': item.firstName + ' ' + item.lastName}
             ]
         },
         {
@@ -186,10 +194,11 @@ var xmlString = xml({
                 '_attr': {
                     'rel': 'http://schemas.google.com/g/2005#work',
                     'primary': 'true',
-                    'address': 'liz@gmail.com',
-                    'displayName': 'E. Bennet'
+                    'address': item.email,
+                    'displayName': item.firstName + ' ' + item.lastName
                 }
             }
         }
     ]
 }, true);
+};
