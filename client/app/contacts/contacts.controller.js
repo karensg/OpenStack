@@ -52,7 +52,7 @@ angular.module('contactAppApp')
 
     $scope.exportContacts = function(){
 
-      $http.post('/api/contacts/export').then(function(res){
+      $http.post('/api/things/post').then(function(res){
           if(res.status == 200){
             alert('Google contacts exported!');
           }else{
