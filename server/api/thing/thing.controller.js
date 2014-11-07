@@ -9,7 +9,7 @@ var serverToken = '';
 
 var CLIENT_ID = '91132622899-9nf94p2rrjfetos89cavjp94as3ocmem.apps.googleusercontent.com';
 var CLIENT_SECRET = 'XG4D_MXvp990d0f0kt5P97HF';
-var REDIRECT_URL = 'http://localhost:9000/api/things/saveToken';
+var REDIRECT_URL = 'http://cloudguest160.niksula.hut.fi:8080/api/things/saveToken';
 var SCOPE = 'https://www.google.com/m8/feeds';
 
 var OAuth2Client = googleapis.auth.OAuth2;
@@ -133,7 +133,7 @@ exports.saveToken = function (req,res) {
       }
       auth.credentials = tokens;
       serverToken = tokens.access_token;
-      res.redirect('/api/things/post');
+      res.redirect('/contacts');
     });
   };
 
