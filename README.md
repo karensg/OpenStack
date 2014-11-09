@@ -35,6 +35,8 @@ Now the website is accessible on [http://localhost:8080/](http://localhost:8080/
 
 #REST API Documentation
 
+{{url}} used for the REST API is [http://localhost:8080/api](http://localhost:8080/api).
+
 ##Get all contacts
 
 URL `GET: {{url}}/contacts`
