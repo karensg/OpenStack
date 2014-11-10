@@ -3,6 +3,14 @@
 angular.module('contactAppApp')
   .controller('ContactsCtrl', function ($scope,$location,$http) {
 
+    $scope.loggedIn = false;
+
+    $http.get('/api/things/getstatus').then(function(res){
+        if(res.data != 0){
+          $scope.loggedIn = true;
+        }
+    });
+
     $http.get('/api/contacts').then(function(res){
         $scope.contacts = res.data;
     });
