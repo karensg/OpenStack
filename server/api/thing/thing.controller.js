@@ -123,6 +123,17 @@ exports.login = function (req,res) {
 
 };
 
+
+exports.getStatus = function(req,res) {
+  if(serverToken != '') {
+    var response = '1';
+  } else {
+    var response = '0';
+  }
+  res.write(response);
+  res.end();
+};
+
 // Callback: save token
 exports.saveToken = function (req,res) {
   var getAccessToken = function(code) {
