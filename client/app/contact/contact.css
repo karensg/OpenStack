@@ -5,3 +5,7 @@
 #editForm .form-group label{
   text-transform: capitalize;
 }
+
+.imgUrl, .thumbUrl{
+  display:none;
+}

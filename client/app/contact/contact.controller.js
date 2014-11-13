@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('contactAppApp')
-  .controller('ContactCtrl', function ($scope,$routeParams,$http,$route) {
+  .controller('ContactCtrl', function ($scope,$routeParams,$http,$route,$upload) {
 
     $http.get('/api/contacts/' + $routeParams.id).then(function(res){
         $scope.contact = res.data;
@@ -14,6 +14,12 @@ angular.module('contactAppApp')
         }
         if(!$scope.contact.lastName){
           $scope.contact.lastName = '';
+        }
+        if(!$scope.contact.imgUrl){
+          $scope.contact.imgUrl = '';
+        }
+        if(!$scope.contact.thumbUrl){
+          $scope.contact.thumbUrl = '';
         }
 
     });
@@ -47,7 +53,24 @@ angular.module('contactAppApp')
     };
 
     $scope.addImage = function(){
-      $("#imageForm").submit();
+
+      var fileInput = document.getElementById("imageInput");
+      var file = fileInput.files[0];
+      $scope.upload = $upload.upload({
+        url: '/api/contacts/' + $scope.contact._id + '/image', //upload.php script, node.js route, or servlet url
+        method: 'POST',
+        file: file, // or list of files ($files) for html5 only
+      }).progress(function(evt) {
+        console.log('percent: ' + parseInt(100.0 * evt.loaded / evt.total));
+      }).success(function(data, status, headers, config) {
+        console.log(data);
+        // file is uploaded successfully
+        var thumb = data.thumbUrl;
+        var img = data.imgUrl;
+        $scope.contact.imgUrl = img;
+        $scope.contact.thumbUrl = thumb;
+
+      });
     };
 
 

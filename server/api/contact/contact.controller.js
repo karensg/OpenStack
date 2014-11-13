@@ -1,10 +1,10 @@
 'use strict';
 
+
 //Setup database
 var mongoskin = require('mongoskin');
 var db = mongoskin.db('mongodb://localhost:27017/openstack', {safe:true});
 var contacts = db.collection('contacts');
-var fs = require('fs');
 
 // Get list of contacts
 exports.index = function(req, res) {
@@ -64,13 +64,47 @@ exports.getContact = function(req, res) {
 /* Update current contact. */
 exports.addImage = function(req, res) {
   var userId = req.params.id;
-  console.log(req);
+  var fs = require("fs");
+  var im = require('imagemagick');
+  var mkdirp = require('mkdirp');
+  var img = req.files.file
+  var tmp_path = img.path;
+  var imgName = slug(img.name);
+  console.log(imgName);
+  //set where the file should actually exists - in this case it is in the "images" directory
+  var target_path = '/uploads/';
+  var thumb_target_path = '/uploads/thumbs/';
+  var base = './client';
+  console.log(base);
+  mkdirp(base + target_path, function(err) {
+    console.log(err);
 
-  fs.readFile(req.files.contactImage.path, function (err, data) {
+    mkdirp(base + thumb_target_path, function(err) {
+        console.log(err);
+        fs.rename(tmp_path, base + target_path + imgName, function(err) {
+          if (err) throw err;
 
-    var newPath = __dirname + "/uploads/uploadedFileName";
-    fs.writeFile(newPath, data, function (err) {
-      res.status(204).send();
+            //delete the temporary file, so that the explicitly set temporary upload
+
+            im.crop({
+              srcPath: base + target_path + imgName,
+              dstPath: base + thumb_target_path + imgName,
+              width: 120,
+              height: 120,
+              quality: 1,
+              gravity: "Center"
+            }, function(err, stdout, stderr){
+              if (err) throw err;
+              console.log('resized image to fit within 100x100');
+            });
+
+            //dir does not get filled with unwanted files
+            fs.unlink(tmp_path, function() {
+               if (err) throw err;
+               res.status(201).json({imgUrl: target_path + imgName, thumbUrl: thumb_target_path + imgName});
+            });
+        });
+
     });
   });
 };
@@ -110,3 +144,11 @@ exports.deleteContact = function(req, res) {
     }
   });
 };
+
+var slug = function(str) {
+
+  var $slug = str.replace(/[^a-z0-9-.]/gi, '').
+  replace(/-+/g, '').
+  replace(/^-|-$/g, '');
+  return $slug.toLowerCase();
+}

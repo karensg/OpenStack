@@ -18,14 +18,14 @@
 
               <div class="form-group {{key}}" ng-repeat='(key, prop) in contact track by key' >
                 <label for="{{key}}Input">{{key}}</label>
-                 <input type="text" class="form-control" id="{{key}}Input" name="{{key}}" placeholder="{{key}}" ng-model="contact[key]">
+                 <input type="text" class="form-control" id="{{key}}Input" name="{{key}}" class="{{key}}" placeholder="{{key}}" ng-model="contact[key]">
               </div>
 
 
       			</form>
             <div class="row">
               <div class="col-lg-8">
-                <form id="imageForm" method="post" action="{{'/api/contacts/' + contact._id + '/image'}}">
+                <form id="imageForm" method="post" enctype="multipart/form-data">
                   <div class="form-group">
                     <label for="imageInput">Image</label>
                      <input type="file" class="form-control btn btn-info" id="imageInput" name="contactImage">
@@ -37,6 +37,10 @@
             <a ng-click="addImage()" class="btn btn-info">Add image</a> <a ng-click="addField()" class="btn btn-info">Add field</a> <a ng-click="saveContact()" class="btn btn-success">Save</a>
 
           </di>
+        </div>
+        <div class="col-lg-6">
+          <img ng-src="{{contact.thumbUrl}}" width="120px" height="120px">
+          <img ng-src="{{contact.imgUrl}}" width="100%">
         </div>
 
 
