@@ -1,6 +1,8 @@
 #Installation
 
 At this moment we assume that [node](http://nodejs.org/) and [git](http://git-scm.com/book/en/Getting-Started-Installing-Git) are already installed on the machine.
+0. Install imagemagick
+brew install imagemagick
 
 1. Install MongoDB.
 See [MongoDB documentation](http://docs.mongodb.org/manual/installation/) for installation instructions on different environments
