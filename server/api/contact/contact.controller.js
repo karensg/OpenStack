@@ -4,6 +4,7 @@
 var mongoskin = require('mongoskin');
 var db = mongoskin.db('mongodb://localhost:27017/openstack', {safe:true});
 var contacts = db.collection('contacts');
+var fs = require('fs');
 
 // Get list of contacts
 exports.index = function(req, res) {
@@ -59,6 +60,21 @@ exports.getContact = function(req, res) {
     }
   });
 };
+
+/* Update current contact. */
+exports.addImage = function(req, res) {
+  var userId = req.params.id;
+  console.log(req);
+
+  fs.readFile(req.files.contactImage.path, function (err, data) {
+
+    var newPath = __dirname + "/uploads/uploadedFileName";
+    fs.writeFile(newPath, data, function (err) {
+      res.status(204).send();
+    });
+  });
+};
+
 
 /* Update current contact. */
 exports.updateContact = function(req, res) {

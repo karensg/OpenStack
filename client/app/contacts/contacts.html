@@ -12,40 +12,44 @@
     <div class="col-lg-12">
       <h1 class="page-header">Contacts</h1>
       <table id="contactsTable" class="table table-hover">
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>First Name</th>
-          <th>Last Name</th>
-          <th>E-mail</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr ng-repeat="contact in contacts">
-          <td>{{$index}}</td>
-          <td>{{contact.firstName}}</td>
-          <td>{{contact.lastName}}</td>
-          <td>{{contact.email}}</td>
-          <td>
-            <div class="pull-right">
-              <a class="btn btn-info" href="/contacts/{{contact._id}}">
-                <span class="glyphicon glyphicon-pencil"></span> edit
-              </a>
-              <a class="btn btn-danger" ng-click="delete(contact,$index)">
-                <span class="glyphicon glyphicon-remove"></span> delete
-              </a>
-            </div>
-         </td>
-        </tr>
-      </tbody>
-    </table>
-    <button ng-click="newContact()" class="btn btn-success">New contact</button>
-    <a target="_self" href="/api/things/login" class="btn btn-success" ng-if="!loggedIn">Login to Google</a>
-    <button ng-click="importContacts()" class="btn btn-success" ng-if="loggedIn">Import Google contacts</button>
-    <button ng-click="exportContacts()" class="btn btn-success" ng-if="loggedIn">Export contacts to Google</button>
-
-
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>E-mail</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="contact in contacts">
+            <td>{{$index}}</td>
+            <td>{{contact.firstName}}</td>
+            <td>{{contact.lastName}}</td>
+            <td>{{contact.email}}</td>
+            <td>
+              <div class="pull-right">
+                <a class="btn btn-info" href="/contacts/{{contact._id}}">
+                  <span class="glyphicon glyphicon-pencil"></span> edit
+                </a>
+                <a class="btn btn-danger" ng-click="delete(contact,$index)">
+                  <span class="glyphicon glyphicon-remove"></span> delete
+                </a>
+              </div>
+           </td>
+          </tr>
+        </tbody>
+      </table>
+      <button ng-click="newContact()" class="btn btn-success">New contact</button>
+      <a target="_self" href="/api/things/login" class="btn btn-success" ng-if="!loggedIn">Login to Google</a>
+      <button ng-click="importContacts()" class="btn btn-success" ng-if="loggedIn">Import Google contacts</button>
+      <button ng-click="exportContacts()" class="btn btn-success" ng-if="loggedIn">Export contacts to Google</button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12">
+      <h2>Import data</h2>
+      <div class="form-group" id="drop" ng-file-drop="onFileSelect($files)" ng-file-drag-over-class="dragging">Drop an XLS file here to import the sheet data.</div>
     </div>
   </div>
 </div>

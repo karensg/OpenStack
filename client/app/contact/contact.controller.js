@@ -44,7 +44,12 @@ angular.module('contactAppApp')
         $route.reload();
       });
 
-    }
+    };
+
+    $scope.addImage = function(){
+      $("#imageForm").submit();
+    };
+
 
     var slug = function(str) {
       var $slug = '';

@@ -10,7 +10,7 @@
 <div class="container">
   <div class="row">
     <div class="col-lg-12">
-      <h1 class="page-header">Contact</h1>
+      <h1 class="page-header">Contact </h1>
 
         <div class="row">
           <div class="col-lg-6">
@@ -23,10 +23,23 @@
 
 
       			</form>
-          </div>
+            <div class="row">
+              <div class="col-lg-8">
+                <form id="imageForm" method="post" action="{{'/api/contacts/' + contact._id + '/image'}}">
+                  <div class="form-group">
+                    <label for="imageInput">Image</label>
+                     <input type="file" class="form-control btn btn-info" id="imageInput" name="contactImage">
+                  </div>
+                </form>
+              </div>
+            </div>
+
+            <a ng-click="addImage()" class="btn btn-info">Add image</a> <a ng-click="addField()" class="btn btn-info">Add field</a> <a ng-click="saveContact()" class="btn btn-success">Save</a>
+
+          </di>
         </div>
 
-      <a ng-click="addField()" class="btn btn-info">Add field</a> <a ng-click="saveContact()" class="btn btn-success">Save</a>
+
 
     </div>
   </div>

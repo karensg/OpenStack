@@ -5,7 +5,8 @@ angular.module('contactAppApp', [
   'ngResource',
   'ngSanitize',
   'ngRoute',
-  'ui.bootstrap'
+  'ui.bootstrap',
+  'angularFileUpload'
 ])
   .config(function ($routeProvider, $locationProvider) {
     $routeProvider
