@@ -8,6 +8,7 @@ var contacts = db.collection('contacts');
 
 // Get list of contacts
 exports.index = function(req, res) {
+
   // Pagination, e.g. ?offset=10&limit=10
   var offset = (req.query.offset !== undefined ) ? req.query.offset : 0;
   var limit = (req.query.limit !== undefined ) ? req.query.limit : 100;
@@ -74,7 +75,7 @@ exports.addImage = function(req, res) {
   //set where the file should actually exists - in this case it is in the "images" directory
   var target_path = '/uploads/';
   var thumb_target_path = '/uploads/thumbs/';
-  var base = './public'; //@TODO: make depended on production / development
+  var base = './' + req.app.get('appPath'); 
   console.log(base);
   mkdirp(base + target_path, function(err) {
     console.log(err);
