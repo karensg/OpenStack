@@ -75,7 +75,7 @@ exports.addImage = function(req, res) {
   //set where the file should actually exists - in this case it is in the "images" directory
   var target_path = '/uploads/';
   var thumb_target_path = '/uploads/thumbs/';
-  var base = './' + req.app.get('appPath'); 
+  var base = './' + req.app.get('appPath');
   console.log(base);
   mkdirp(base + target_path, function(err) {
     console.log(err);
@@ -152,4 +152,22 @@ var slug = function(str) {
   replace(/-+/g, '').
   replace(/^-|-$/g, '');
   return $slug.toLowerCase();
-}
+};
+
+
+exports.import = function(req, res) {
+
+  var xlsxj = require("xlsx-to-json");
+  xlsxj({
+    input: "./stafflistv0.1.xlsx",
+    output: "./stafflistv0.1.json"
+  }, function(err, result) {
+    if(err) {
+      console.error(err);
+    }else {
+      contacts.insert(result, function(err, result){
+        console.log(err);
+      });
+    }
+  });
+};
