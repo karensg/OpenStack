@@ -75,7 +75,7 @@ exports.addImage = function(req, res) {
   //set where the file should actually exists - in this case it is in the "images" directory
   var target_path = '/uploads/';
   var thumb_target_path = '/uploads/thumbs/';
-  var base = './' + req.app.get('appPath');
+  var base = req.app.get('appPath');
   console.log(base);
   mkdirp(base + target_path, function(err) {
     console.log(err);
