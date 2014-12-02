@@ -48,31 +48,17 @@ Possible response (200):
 [
 {
 _id: "543bc2f3f2167b31539cc5f8"
-firstName: "Hylke"
-lastName: "Visser"
-email: "htdvisser@gmail.com"
-mobile: "064512145"
+firstName: "Test"
+lastName: "testen"
+email: "testtesten@gmail.com"
+mobile: "0123456789"
 },
 {
 _id: "543bcc121ca5ab49531d8ad0"
-firstName: "Ruud"
-lastName: "Visser"
-email: "visser.rgm@gmail.com"
-mobile: "0614504144"
-},
-{
-_id: "543bcc281ca5ab49531d8ad1"
-firstName: "Karens"
-lastName: "Grigorjancs"
-email: "k.grigorjancs@gmail.com"
-mobile: "06123456789"
-},
-{
-_id: "543bcc3e1ca5ab49531d8ad2"
-firstName: "Jan"
-lastName: "van de Kerkhof"
-email: "jvdkerkhof@gmail.com"
-mobile: "0687654321"
+firstName: "Test2"
+lastName: "test"
+email: "test2@gmail.com"
+mobile: "0987654321"
 }
 ]
 ```
@@ -85,10 +71,10 @@ Possible response (200):
 ```json
 {
 _id: "543bcc121ca5ab49531d8ad0"
-firstName: "Ruud"
-lastName: "Visser"
-email: "visser.rgm@gmail.com"
-mobile: "0614504144"
+firstName: "Test"
+lastName: "testen"
+email: "test@gmail.com"
+mobile: "098765432"
 }
 ```
 
@@ -107,10 +93,10 @@ Response (201):
 ```json
 {
 _id: "543bcc121ca5ab49531d8ad0"
-firstName: "Ruud"
-lastName: "Visser"
-email: "visser.rgm@gmail.com"
-mobile: "0614504144"
+firstName: "Test"
+lastName: "Testje"
+email: "testen@gmail.com"
+mobile: "1234567"
 }
 ```
 
@@ -151,32 +137,23 @@ Possible response (200):
 ```json
 [
 {
-_id: "543bcc281ca5ab49531d8ad1"
-firstName: "Karens"
-lastName: "Grigorjancs"
-email: "k.grigorjancs@gmail.com"
-mobile: "06123456789"
-},
-{
-_id: "543bc2f3f2167b31539cc5f8"
-firstName: "Hylke"
-lastName: "Visser"
-email: "htdvisser@gmail.com"
-mobile: "064512145"
-},
-{
 _id: "543bcc121ca5ab49531d8ad0"
-firstName: "Ruud"
-lastName: "Visser"
-email: "visser.rgm@gmail.com"
-mobile: "0614504144"
-},
-{
-_id: "543bcc3e1ca5ab49531d8ad2"
-firstName: "Jan"
-lastName: "van de Kerkhof"
-email: "jvdkerkhof@gmail.com"
-mobile: "0687654321"
+firstName: "Test"
+lastName: "Testje"
+email: "testen@gmail.com"
+mobile: "1234567"
+},{
+_id: "543bcc121ca5ab49531d8ad0"
+firstName: "Test"
+lastName: "Testje"
+email: "testen@gmail.com"
+mobile: "1234567"
+},{
+_id: "543bcc121ca5ab49531d8ad0"
+firstName: "Test"
+lastName: "Testje"
+email: "testen@gmail.com"
+mobile: "1234567"
 }
 ]
 ```
@@ -192,10 +169,10 @@ Possible response (200):
 [
 {
 _id: "543bcc121ca5ab49531d8ad0"
-firstName: "Ruud"
-lastName: "Visser"
-email: "visser.rgm@gmail.com"
-mobile: "0644545471"
+firstName: "Test"
+lastName: "Testje"
+email: "testen@gmail.com"
+mobile: "1234567"
 }
 ]
 ```
@@ -207,24 +184,17 @@ URL `GET: {{url}}/contacts?offset=(int)&limit=(int)`
 - offset: where to start
 - limit: how many results
 
-Sample request: {{url}}/contacts?offset=1&limit=2
+Sample request: {{url}}/contacts?offset=1&limit=1
 
 Possible response (200):
 ```json
 [
 {
 _id: "543bcc121ca5ab49531d8ad0"
-firstName: "Ruud"
-lastName: "Visser"
-email: "visser.rgm@gmail.com"
-mobile: "0644545471"
-},
-{
-_id: "543bcc281ca5ab49531d8ad1"
-firstName: "Karens"
-lastName: "Grigorjancs"
-email: "k.grigorjancs@gmail.com"
-mobile: "06123456789"
+firstName: "Test"
+lastName: "Testje"
+email: "testen@gmail.com"
+mobile: "1234567"
 }
 ]
 ```
