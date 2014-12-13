@@ -9,7 +9,10 @@ var errors = require('./components/errors');
 module.exports = function(app) {
 
   // Insert routes below
-  app.use('/api/contacts', require('./api/contact'));
+  app.use('/api/contacts', app.oauth.authorise(), require('./api/contact'), function (req, res) {
+    // Will require a valid access_token
+    res.send('Secret area');
+  });
   app.use('/api/things', require('./api/thing'));
 
   // All undefined asset or api routes should return a 404
